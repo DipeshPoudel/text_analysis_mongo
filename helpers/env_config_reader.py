@@ -12,5 +12,6 @@ try:
     MONGO_USER_NAME = os.getenv("MONGO_USER_NAME")
     MONGO_PASSWORD = os.getenv("MONGO_PASSWORD")
     MONGO_DATABASE = os.getenv("MONGO_DATABASE")
+    MONGO_HOST = os.getenv("MONGO_HOST")
 except Exception as e:
     print(f"Unable to Load the Config Variables. {e}")

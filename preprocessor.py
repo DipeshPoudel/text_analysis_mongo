@@ -1,6 +1,7 @@
 import os
 import re
 from helpers import pymongo_get_database
+from helpers import ini_config_reader
 
 
 class Preprocessor:
@@ -139,13 +140,15 @@ class Preprocessor:
 
 
 if __name__ == "__main__":
+    config = ini_config_reader.read_config()
+    tweet_topic = config['topic_config']['topic_title']
     preprocessor = Preprocessor()
     db = pymongo_get_database.get_database()
-    collection = db['tweet_extract_apple']
+    collection = db[f'tweet_extract_{tweet_topic}']
     extracted_tweet = collection.find()
     cleaned_tweets = []
     for item in extracted_tweet:
         clean_tweet = preprocessor.clean(item['tweet_text'])
         cleaned_tweets.append({'_id': item['_id'], 'cleaned_tweet_text': clean_tweet})
-    clean_tweet_collection = db['cleaned_tweet_apple']
+    clean_tweet_collection = db[f'cleaned_tweet_{tweet_topic}']
     clean_tweet_collection.insert_many(cleaned_tweets)

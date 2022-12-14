@@ -1,11 +1,11 @@
 from pymongo import MongoClient
-from . import config_reader
+from . import env_config_reader
 
 
 def get_database():
-    CONNECTION_STRING = f"mongodb+srv://{config_reader.MONGO_USER_NAME}:{config_reader.MONGO_PASSWORD}@cluster0.wpooz7j.mongodb.net/?retryWrites=true&w=majority"
-    client = MongoClient(CONNECTION_STRING)
-    return client[config_reader.MONGO_DATABASE]
+    connection_string = f"mongodb+srv://{env_config_reader.MONGO_USER_NAME}:{env_config_reader.MONGO_PASSWORD}@{env_config_reader.MONGO_HOST}/?retryWrites=true&w=majority"
+    client = MongoClient(connection_string)
+    return client[env_config_reader.MONGO_DATABASE]
 
 
 if __name__ == '__main__':
