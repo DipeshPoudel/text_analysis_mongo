@@ -37,6 +37,7 @@ def extract_data(db_name, topic, api, items_limit=100):
 
 
 if __name__ == '__main__':
+    print("Getting Started")
     config = ini_config_reader.read_config()
     tweet_topic = config['topic_config']['topic_title']
     tweet_items_limit = int(config['topic_config']['topic_title'])
@@ -48,3 +49,4 @@ if __name__ == '__main__':
     api_auth = auth(api_key, api_key_secret, access_token, access_token_secret)
     api = get_api(api_auth)
     extract_data(pymongo_get_database.get_database(), tweet_topic, api, items_limit=tweet_items_limit)
+    print("Extraction Completed")
